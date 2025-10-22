@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
-    protected $table = 'usuarios'; // coincide con tu migración
+    use Notifiable;
+
+    protected $table = 'usuarios';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'tipo_documento',
@@ -16,13 +20,30 @@ class Usuario extends Model
         'rol',
         'nombre',
         'apellido',
-        'telefono',
+        'telefono'
     ];
 
-    protected $hidden = ['password'];
+    protected $hidden = [
+        'password',
+    ];
 
-    // Si usas PK int autoincrement, esto es lo normal:
-    protected $primaryKey = 'id';
-    public $incrementing = true;
-    protected $keyType = 'int';
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    // Métodos para verificar roles
+    public function isAdmin()
+    {
+        return $this->rol === 'Administrador';
+    }
+
+    public function isGerente()
+    {
+        return $this->rol === 'Gerente';
+    }
+
+    public function isCliente()
+    {
+        return $this->rol === 'Cliente';
+    }
 }

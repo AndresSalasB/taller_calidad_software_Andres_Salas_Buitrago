@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TiendaComputadores - Venta de Equipos de Cómputo</title>
 
-    {{-- Bootstrap / FontAwesome --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('imagenes/storeComputadores.jpeg') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
@@ -137,8 +137,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('inicio') }}">
-                <img src="{{ asset('imagenes/storeComputadores.jpg') }}" alt="Logo StoreComputadores" width="56" height="56" class="rounded border border-danger">
-                <span class="fw-semibold text-danger">StoreComputadores</span>
+                <img src="{{ asset('imagenes/storeComputadores.jpeg') }}" alt="Logo TiendaComputadores" width="56" height="56" class="rounded border border-danger">
+                <span class="fw-semibold text-danger">TiendaComputadores</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Alternar navegación">
@@ -158,10 +158,12 @@
                     {{-- Botones Auth --}}
                     @guest
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="{{ route('login') }}">Iniciar Sesión</a>
+                        <a class="btn btn-outline-light btn-sm {{ request()->routeIs('login') ? 'active' : '' }}"
+                            href="{{ route('login') }}">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-light btn-sm text-danger ms-lg-2" href="{{ route('usuarios.create') }}">
+                        <a class="btn btn-light btn-sm text-danger ms-lg-2 {{ request()->routeIs('registro') ? 'active' : '' }}"
+                            href="{{ route('registro') }}">
                             <i class="fas fa-user-plus me-1"></i> Registrarse
                         </a>
                     </li>
@@ -182,9 +184,13 @@
                             </li>
 
                             {{-- Listado general de usuarios (si tiene permiso) --}}
+                            @auth
                             @can('manage-users')
-                            <li><a class="dropdown-item text-danger" href="{{ route('usuarios.index') }}"><i class="fas fa-users me-2"></i>Usuarios</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios</a>
+                            </li>
                             @endcan
+                            @endauth
 
                             {{-- Paneles por rol (si existen las rutas) --}}
                             @if (Route::has('cliente.panel') && $user->rol === 'Cliente')
@@ -222,7 +228,7 @@
             <div class="container">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-6">
-                        <h1 class="display-5 fw-bold lh-sm">Bienvenido a <span class="text-white">StoreComputadores</span></h1>
+                        <h1 class="display-5 fw-bold lh-sm">Bienvenido a <span class="text-white">TiendaComputadores</span></h1>
                         <p class="lead mt-3">Encuentra los mejores computadores de escritorio y portátiles con precios increíbles y la mejor calidad.</p>
                         <div class="d-flex gap-3 mt-4">
                             <a href="{{ route('productos.index') }}" class="btn btn-danger btn-lg">Ver Catálogo</a>
@@ -234,13 +240,13 @@
                         </div>
                     </div>
                     <div class="col-lg-6 text-center">
-                        <img src="{{ asset('imagenes/storeComputadores.jpg') }}" alt="Computadores de última generación" class="img-fluid hero-img">
+                        <img src="{{ asset('imagenes/storeComputadores.jpeg') }}" alt="Computadores de última generación" class="img-fluid hero-img">
                     </div>
                 </div>
             </div>
         </section>
 
-        {{-- CATEGORÍAS --}}
+        {{-- CATEGORÍAS
         <section id="categorias" class="categories-section py-5">
             <div class="container">
                 <div class="text-center mb-5">
@@ -249,7 +255,7 @@
                 </div>
 
                 <div class="row g-4">
-                    {{-- Portátiles --}}
+                    {{-- Portátiles
                     <div class="col-md-6">
                         <div class="card h-100 category-card">
                             <div class="card-body text-center p-4">
@@ -257,11 +263,11 @@
                                 <h3 class="h4 fw-bold text-dark mb-3">Computadores Portátiles</h3>
                                 <p class="text-muted mb-4">Laptops de alto rendimiento para trabajo, estudio y gaming.</p>
                                 <a href="{{ route('productos.index') }}#portatiles" class="btn btn-outline-red" data-tipo="portatil">Ver Portátiles</a>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        </div>
+        </div>
 
-                    {{-- Escritorio --}}
+        {{-- Escritorio
                     <div class="col-md-6">
                         <div class="card h-100 category-card">
                             <div class="card-body text-center p-4">
@@ -269,22 +275,24 @@
                                 <h3 class="h4 fw-bold text-dark mb-3">Computadores de Escritorio</h3>
                                 <p class="text-muted mb-4">PCs potentes para oficina, hogar y gaming.</p>
                                 <a href="{{ route('productos.index') }}#escritorio" class="btn btn-outline-dark" data-tipo="escritorio">Ver de Escritorio</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </section>--}}
 
-        {{-- LISTADO (DEMO) --}}
+        {{-- CATÁLOGO DE PRODUCTOS --}}
+
+        {{-- LISTADO (DEMO)
         <section id="productos" class="products-section py-5">
             <div class="container">
                 <div class="text-center mb-5">
                     <h2 class="fw-bold text-dark mb-3">Catálogo de Computadores</h2>
                     <p class="text-muted">Los mejores equipos al mejor precio</p>
-                </div>
+                </div> --}}
 
-                {{-- Filtros demo --}}
+        {{-- Filtros demo
                 <div class="row mb-4">
                     <div class="col-12">
                         <div class="card filter-card">
@@ -304,100 +312,101 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--}}
 
-                {{-- Grid demo (estático) --}}
-                <div class="row g-4" id="gridProductos">
-                    <div class="col-lg-4 col-md-6" data-tipo="portatil">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="{{ asset('imagenes/computadorPortatil.jpg') }}" class="card-img-top" alt="Laptop Gaming" style="height:200px; object-fit:cover;">
-                                <span class="position-absolute top-0 start-0 m-2 badge badge-portatil">Portátil</span>
-                                <span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-dark">Laptop Gaming</h5>
-                                <p class="card-text text-muted small flex-grow-1">RTX, 16GB RAM, 1TB SSD.</p>
-                                <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <h4 class="text-red fw-bold mb-0">$4.299.000</h4>
-                                    @guest
-                                    <a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>
-                                    @else
-                                    <button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>
-                                    @endguest
-                                </div>
-                            </div>
-                        </div>
+        {{-- Grid demo (estático) --}}
+        <div class="row g-4" id="gridProductos">
+            <div class="col-lg-4 col-md-6" data-tipo="portatil">
+                <div class="card h-100 product-card">
+                    <div class="position-relative">
+                        <img src="{{ asset('imagenes/computadorPortatil.jpg') }}" class="card-img-top" alt="Laptop Gaming" style="height:200px; object-fit:cover;">
+                        <span class="position-absolute top-0 start-0 m-2 badge badge-portatil">Portátil</span>
+                        <span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>
                     </div>
-
-                    <div class="col-lg-4 col-md-6" data-tipo="escritorio">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="{{ asset('imagenes/computadorEscritorio.webp') }}" class="card-img-top" alt="PC Escritorio" style="height:200px; object-fit:cover;">
-                                <span class="position-absolute top-0 start-0 m-2 badge badge-escritorio">Escritorio</span>
-                                <span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-dark">PC de Escritorio</h5>
-                                <p class="card-text text-muted small flex-grow-1">i7, 32GB RAM, 2TB SSD.</p>
-                                <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <h4 class="text-red fw-bold mb-0">$5.799.000</h4>
-                                    @guest
-                                    <a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>
-                                    @else
-                                    <button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>
-                                    @endguest
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6" data-tipo="portatil">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="{{ asset('imagenes/computadorAiO.webp') }}" class="card-img-top" alt="Ultrabook" style="height:200px; object-fit:cover;">
-                                <span class="position-absolute top-0 start-0 m-2 badge badge-portatil">Portátil</span>
-                                <span class="position-absolute top-0 end-0 m-2 badge bg-warning">Últimas unidades</span>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-dark">Ultrabook</h5>
-                                <p class="card-text text-muted small flex-grow-1">Pantalla 13”, i5, 8GB RAM.</p>
-                                <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <h4 class="text-red fw-bold mb-0">$3.899.000</h4>
-                                    @guest
-                                    <a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>
-                                    @else
-                                    <button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>
-                                    @endguest
-                                </div>
-                            </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-dark">Laptop Gaming</h5>
+                        <p class="card-text text-muted small flex-grow-1">RTX, 16GB RAM, 1TB SSD.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <h4 class="text-red fw-bold mb-0">$4.299.000</h4>
+                            @guest
+                            {{--<a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>--}}
+                            @else
+                            {{--<button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>--}}
+                            @endguest
                         </div>
                     </div>
                 </div>
-
-                {{-- accesos directos a CRUD Usuarios (útiles para pruebas) --}}
-                <div class="text-center mt-5">
-                    <div class="d-inline-flex gap-2 flex-wrap">
-                        <a href="{{ route('usuarios.index') }}" class="btn btn-outline-secondary"><i class="fas fa-users me-2"></i>Listado de Usuarios</a>
-                        <a href="{{ route('usuarios.create') }}" class="btn btn-primary"><i class="fas fa-user-plus me-2"></i>Registrar Usuario</a>
-                        @auth
-                        <a href="{{ route('usuarios.show', auth()->id()) }}" class="btn btn-info"><i class="far fa-id-card me-2"></i>Mi Perfil</a>
-                        <a href="{{ route('usuarios.edit', auth()->id()) }}" class="btn btn-warning"><i class="fas fa-user-pen me-2"></i>Editar Mi Perfil</a>
-                        @endauth
-                    </div>
-                </div>
-
             </div>
+
+            <div class="col-lg-4 col-md-6" data-tipo="escritorio">
+                <div class="card h-100 product-card">
+                    <div class="position-relative">
+                        <img src="{{ asset('imagenes/computadorEscritorio.webp') }}" class="card-img-top" alt="PC Escritorio" style="height:200px; object-fit:cover;">
+                        <span class="position-absolute top-0 start-0 m-2 badge badge-escritorio">Escritorio</span>
+                        <span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-dark">PC de Escritorio</h5>
+                        <p class="card-text text-muted small flex-grow-1">i7, 32GB RAM, 2TB SSD.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <h4 class="text-red fw-bold mb-0">$5.799.000</h4>
+                            @guest
+                            {{--<a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>
+                            @else
+                            <button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>--}}
+                            @endguest
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-tipo="portatil">
+                <div class="card h-100 product-card">
+                    <div class="position-relative">
+                        <img src="{{ asset('imagenes/computadorAiO.webp') }}" class="card-img-top" alt="Ultrabook" style="height:200px; object-fit:cover;">
+                        <span class="position-absolute top-0 start-0 m-2 badge badge-portatil">Portátil</span>
+                        <span class="position-absolute top-0 end-0 m-2 badge bg-warning">Últimas unidades</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-dark">Ultrabook</h5>
+                        <p class="card-text text-muted small flex-grow-1">Pantalla 13”, i5, 8GB RAM.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <h4 class="text-red fw-bold mb-0">$3.899.000</h4>
+                            @guest
+                            {{--<a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>
+                            @else
+                            <button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>--}}
+                            @endguest
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- accesos directos a CRUD Usuarios (útiles para pruebas) --}}
+        <div class="text-center mt-5">
+            <div class="d-inline-flex gap-2 flex-wrap">
+                {{--<a href="{{ route('usuarios.index') }}" class="btn btn-outline-secondary"><i class="fas fa-users me-2"></i>Listado de Usuarios</a>
+                <a href="{{ route('usuarios.create') }}" class="btn btn-primary"><i class="fas fa-user-plus me-2"></i>Registrar Usuario</a>--}}
+                @auth
+                <a href="{{ route('usuarios.show', auth()->id()) }}" class="btn btn-info"><i class="far fa-id-card me-2"></i>Mi Perfil</a>
+                <a href="{{ route('usuarios.edit', auth()->id()) }}" class="btn btn-warning"><i class="fas fa-user-pen me-2"></i>Editar Mi Perfil</a>
+                @endauth
+            </div>
+        </div>
+
+        </div>
         </section>
 
         {{-- CTA --}}
         <section class="cta-section py-5">
             <div class="container">
                 <div class="row align-items-center">
+                    {{--
                     <div class="col-lg-8">
                         <h2 class="fw-bold mb-3">¿Eres vendedor de computadores?</h2>
                         <p class="lead mb-0">Únete a nuestra plataforma y llega a miles de clientes interesados en tecnología.</p>
-                    </div>
+                    </div>--}}
                     <div class="col-lg-4 text-lg-end">
                         @guest
                         <a href="{{ route('usuarios.create') }}" class="btn btn-light btn-lg cta-btn">Registrarme</a>

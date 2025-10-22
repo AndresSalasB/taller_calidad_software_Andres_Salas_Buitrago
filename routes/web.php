@@ -2,54 +2,47 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TipoProductoController;
 
-/*
-|--------------------------------------------------------------------------
-| Inicio
-|--------------------------------------------------------------------------
-| Si tu InicioController es invocable (__invoke), dejamos una sola ruta raíz.
-| /inicio redirige a la raíz para evitar duplicados.
-*/
+/* Inicio */
 
 Route::get('/', InicioController::class)->name('inicio');
-Route::redirect('/inicio', '/')->name('inicio.inicio'); // alias opcional
+Route::redirect('/inicio', '/')->name('inicio.inicio');
+
+/* Auth (público: invitados) */
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.perform');
+
+    Route::get('/registro/{tipo?}', [AuthController::class, 'showRegister'])->name('registro');
+    Route::post('/registro', [AuthController::class, 'register'])->name('registro.submit');
+});
+
+/* Auth (privado: autenticados) */
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Paneles por rol (si usas las redirecciones por rol)
+    Route::view('/panel/cliente', 'panel.cliente')->name('cliente.panel');
+    Route::view('/panel/gerente', 'panel.gerente')->name('gerente.panel');
+    Route::view('/panel/admin',   'panel.admin')->name('admin.panel');
+});
 
 
-/*
-|--------------------------------------------------------------------------
-| Productos
-|--------------------------------------------------------------------------
-| Recurso completo. Si quieres restringir creación/edición/eliminación,
-| puedes añadir middleware en el constructor del ProductoController.
-*/
+/* Productos (CRUD completo) */
 Route::resource('productos', ProductoController::class);
 
-/*
-|--------------------------------------------------------------------------
-| Usuarios
-|--------------------------------------------------------------------------
-| Recurso completo. Normalmente lo maneja personal con permisos (Admin).
-| Si ya definiste una Policy o Gate "manage-users", lo aplicamos aquí.
-| Si aún no, puedes comentar la línea del middleware y usarlo abierto.
-*/
+/* Usuarios (protegido por policy/gate opcional) */
 Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::resource('usuarios', UsuarioController::class);
 });
-// --- Si aún no tienes gates/policies y quieres dejarlo abierto (no recomendado):
+// Si aún no tienes gate/policy, puedes temporalmente abrirlo (no recomendado):
 // Route::resource('usuarios', UsuarioController::class);
 
-/*
-|--------------------------------------------------------------------------
-| Tipos de Producto
-|--------------------------------------------------------------------------
-| Recurso completo + atajos de navegación sin duplicar nombres.
-| /tipos y /categorias redirigen al index del recurso para mantener una sola verdad.
-*/
+/* Tipos de Producto */
 Route::resource('tiposProducto', TipoProductoController::class);
-// Atajos amigables que apuntan al index del recurso:
 Route::get('/tipos', fn() => redirect()->route('tiposProducto.index'))->name('tiposProducto.tipos');
 Route::get('/categorias', fn() => redirect()->route('tiposProducto.index'))->name('tiposProducto.categorias');
