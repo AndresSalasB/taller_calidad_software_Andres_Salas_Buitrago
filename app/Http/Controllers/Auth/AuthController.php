@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    //Mostrar formulario de login
     public function showLoginForm()
     {
-        if (Auth::check()) return redirect()->route('inicio');
+        if (Auth::check() !== false) return redirect()->route('inicio');
         return view('auth.login');
     }
 
+    //Procesar inicio de sesión
     public function login(Request $request)
     {
         $request->validate([
@@ -28,7 +30,7 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
 
-        if (Auth::attempt($credenciales, $request->boolean('remember'))) {
+        if (Auth::attempt($credenciales, $request->boolean('remember')) === true) {
             $request->session()->regenerate();
             return redirect()->intended(route('inicio'));
         }

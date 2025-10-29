@@ -46,4 +46,8 @@ class Usuario extends Authenticatable
     {
         return $this->rol === 'Cliente';
     }
+    public function getAuthIdentifierName()
+    {
+        return 'correo';
+    }
 }

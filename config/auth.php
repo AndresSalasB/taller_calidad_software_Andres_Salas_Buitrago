@@ -26,6 +26,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model'  => App\Models\Usuario::class,
+            'table' => 'usuarios',
         ],
 
         // Alternativa con base de datos (no necesaria si usas Eloquent):
