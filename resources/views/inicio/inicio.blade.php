@@ -177,22 +177,20 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             {{-- Perfil propio (show/edit) --}}
-                            <li><a class="dropdown-item text-danger" href="{{ route('usuarios.show', $user->id) }}"><i class="far fa-id-card me-2"></i>Mi Perfil</a></li>
-                            <li><a class="dropdown-item text-danger" href="{{ route('usuarios.edit', $user->id) }}"><i class="fas fa-user-pen me-2"></i>Editar Perfil</a></li>
+                            <li><a class="dropdown-item text-danger" href="{{ route('usuarios.show', $user->id) }}">
+                                    <!--i class="far fa-id-card me-2"></i-->Mi Perfil
+                                </a></li>
+                            <li><a class="dropdown-item text-danger" href="{{ route('usuarios.edit', $user->id) }}"><!--i class="fas fa-user-pen me-2"></i-->Editar Perfil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
 
                             {{-- Listado general de usuarios (si tiene permiso) --}}
-                            @auth
                             @can('manage-users')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios</a>
-                            </li>
+                            <li><a class="dropdown-item text-danger" href="{{ route('usuarios.index') }}"><i class="fas fa-users me-2"></i>Usuarios</a></li>
                             @endcan
-                            @endauth
 
-                            {{-- Paneles por rol (si existen las rutas) --}}
+                            {{-- Paneles por rol --}}
                             @if (Route::has('cliente.panel') && $user->rol === 'Cliente')
                             <li><a class="dropdown-item text-danger" href="{{ route('cliente.panel') }}">Panel Cliente</a></li>
                             @endif
@@ -206,11 +204,12 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
+
+                            {{-- BOTÓN DE CERRAR SESIÓN MEJORADO --}}
                             <li>
-                                <form method="POST" action="{{ route('logout') }}" class="px-3 py-1">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger w-100">Cerrar sesión</button>
-                                </form>
+                                <a class="dropdown-item text-danger logout-link" href="#" onclick="confirmarLogout(event)">
+                                    <!--i class="fas fa-right-from-bracket me-2"></i--> Cerrar sesión
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -246,8 +245,8 @@
             </div>
         </section>
 
-        {{-- CATEGORÍAS
-        <section id="categorias" class="categories-section py-5">
+        {{-- CATEGORÍAS --}}
+        {{-- <section id="categorias" class="categories-section py-5">
             <div class="container">
                 <div class="text-center mb-5">
                     <h2 class="fw-bold text-dark mb-3">Nuestras Categorías</h2>
@@ -255,8 +254,8 @@
                 </div>
 
                 <div class="row g-4">
-                    {{-- Portátiles
-                    <div class="col-md-6">
+                    {{-- Portátiles --}}
+        {{-- <div class="col-md-6">
                         <div class="card h-100 category-card">
                             <div class="card-body text-center p-4">
                                 <div class="icon-container bg-red mx-auto mb-3"><i class="fas fa-laptop text-white"></i></div>
@@ -265,10 +264,10 @@
                                 <a href="{{ route('productos.index') }}#portatiles" class="btn btn-outline-red" data-tipo="portatil">Ver Portátiles</a>
         </div>
         </div>
-        </div>
+        </div> --}}
 
-        {{-- Escritorio
-                    <div class="col-md-6">
+        {{-- Escritorio --}}
+        {{-- <div class="col-md-6">
                         <div class="card h-100 category-card">
                             <div class="card-body text-center p-4">
                                 <div class="icon-container bg-dark mx-auto mb-3"><i class="fas fa-desktop text-white"></i></div>
@@ -280,20 +279,20 @@
         </div>
         </div>
         </div>
-        </section>--}}
+        </section> --}}
 
         {{-- CATÁLOGO DE PRODUCTOS --}}
 
-        {{-- LISTADO (DEMO)
-        <section id="productos" class="products-section py-5">
+        {{-- LISTADO (DEMO) --}}
+        {{-- <section id="productos" class="products-section py-5">
             <div class="container">
                 <div class="text-center mb-5">
                     <h2 class="fw-bold text-dark mb-3">Catálogo de Computadores</h2>
                     <p class="text-muted">Los mejores equipos al mejor precio</p>
                 </div> --}}
 
-        {{-- Filtros demo
-                <div class="row mb-4">
+        {{-- Filtros demo --}}
+        {{-- <div class="row mb-4">
                     <div class="col-12">
                         <div class="card filter-card">
                             <div class="card-body">
@@ -312,7 +311,7 @@
                             </div>
                         </div>
                     </div>
-                </div>--}}
+                </div> --}}
 
         {{-- Grid demo (estático) --}}
         <div class="row g-4" id="gridProductos">
@@ -321,7 +320,7 @@
                     <div class="position-relative">
                         <img src="{{ asset('imagenes/computadorPortatil.jpg') }}" class="card-img-top" alt="Laptop Gaming" style="height:200px; object-fit:cover;">
                         <span class="position-absolute top-0 start-0 m-2 badge badge-portatil">Portátil</span>
-                        <span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>
+                        <!--<span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>-->
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-dark">Laptop Gaming</h5>
@@ -343,7 +342,7 @@
                     <div class="position-relative">
                         <img src="{{ asset('imagenes/computadorEscritorio.webp') }}" class="card-img-top" alt="PC Escritorio" style="height:200px; object-fit:cover;">
                         <span class="position-absolute top-0 start-0 m-2 badge badge-escritorio">Escritorio</span>
-                        <span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>
+                        <!--<span class="position-absolute top-0 end-0 m-2 badge bg-success">En Stock</span>-->
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-dark">PC de Escritorio</h5>
@@ -351,9 +350,9 @@
                         <div class="d-flex justify-content-between align-items-center mt-auto">
                             <h4 class="text-red fw-bold mb-0">$5.799.000</h4>
                             @guest
-                            {{--<a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>
+                            {{--<a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>--}}
                             @else
-                            <button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>--}}
+                            {{--<button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>--}}
                             @endguest
                         </div>
                     </div>
@@ -365,17 +364,17 @@
                     <div class="position-relative">
                         <img src="{{ asset('imagenes/computadorAiO.webp') }}" class="card-img-top" alt="Ultrabook" style="height:200px; object-fit:cover;">
                         <span class="position-absolute top-0 start-0 m-2 badge badge-portatil">Portátil</span>
-                        <span class="position-absolute top-0 end-0 m-2 badge bg-warning">Últimas unidades</span>
+                        <!--<span class="position-absolute top-0 end-0 m-2 badge bg-warning">Últimas unidades</span>-->
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-dark">Ultrabook</h5>
-                        <p class="card-text text-muted small flex-grow-1">Pantalla 13”, i5, 8GB RAM.</p>
+                        <p class="card-text text-muted small flex-grow-1">Pantalla 13", i5, 8GB RAM.</p>
                         <div class="d-flex justify-content-between align-items-center mt-auto">
                             <h4 class="text-red fw-bold mb-0">$3.899.000</h4>
                             @guest
-                            {{--<a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>
+                            {{--<a class="btn btn-red btn-sm" href="{{ route('login') }}">Agregar al Carrito</a>--}}
                             @else
-                            <button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>--}}
+                            {{--<button class="btn btn-red btn-sm" type="button">Agregar al Carrito</button>--}}
                             @endguest
                         </div>
                     </div>
@@ -389,14 +388,15 @@
                 {{--<a href="{{ route('usuarios.index') }}" class="btn btn-outline-secondary"><i class="fas fa-users me-2"></i>Listado de Usuarios</a>
                 <a href="{{ route('usuarios.create') }}" class="btn btn-primary"><i class="fas fa-user-plus me-2"></i>Registrar Usuario</a>--}}
                 @auth
-                <a href="{{ route('usuarios.show', auth()->id()) }}" class="btn btn-info"><i class="far fa-id-card me-2"></i>Mi Perfil</a>
-                <a href="{{ route('usuarios.edit', auth()->id()) }}" class="btn btn-warning"><i class="fas fa-user-pen me-2"></i>Editar Mi Perfil</a>
+                <a href="{{ route('usuarios.show', auth()->id()) }}" class="btn btn-info"><!-- <i class="far fa-id-card me-2"></i> -->Mi Perfil</a>
+                <a href="{{ route('usuarios.edit', auth()->id()) }}" class="btn btn-warning">
+                    <!--<i class="fas fa-user-pen me-2"></i>-->Editar Mi Perfil
+                </a>
                 @endauth
             </div>
         </div>
 
-        </div>
-        </section>
+        {{-- </section> --}}
 
         {{-- CTA --}}
         <section class="cta-section py-5">
@@ -431,11 +431,32 @@
         </div>
     </footer>
 
+    {{-- FORMULARIO DE LOGOUT GLOBAL (OCULTO) --}}
+    <form id="global-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
     {{-- JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Año dinámico
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // === SISTEMA DE LOGOUT MEJORADO ===
+        function confirmarLogout(event) {
+            event.preventDefault();
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                document.getElementById('global-logout-form').submit();
+            }
+        }
+
+        // Configurar eventos de logout cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            // Para enlaces con clase logout-link
+            document.querySelectorAll('.logout-link').forEach(link => {
+                link.addEventListener('click', confirmarLogout);
+            });
+        });
 
         // Filtro de productos (demo)
         const filtro = document.getElementById('filtroTipo');
@@ -464,6 +485,10 @@
             });
         });
     </script>
+    {{-- FORMULARIO DE LOGOUT GLOBAL (OCULTO) --}}
+    <form id="global-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
 </body>
 
 </html>

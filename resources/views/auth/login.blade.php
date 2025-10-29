@@ -94,7 +94,7 @@
                             @endif
 
                             {{-- IMPORTANTE: solo backend (DB). Sin autenticación en JS. --}}
-                            <form id="loginForm" action="{{ route('login.perform') }}" method="POST" novalidate>
+                            <form id="loginForm" action="{{ route('login') }}" method="POST" novalidate>
                                 @csrf
 
                                 <div class="mb-3">
@@ -190,7 +190,20 @@
                 btn.querySelector('.btn-spinner')?.classList.remove('d-none');
             });
         })();
+
+        // === AGREGAR ESTE NUEVO CÓDIGO PARA CONFIRMAR LOGOUT ===
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutForm = document.querySelector('form[action="{{ route("logout") }}"]');
+            if (logoutForm) {
+                logoutForm.addEventListener('submit', function(e) {
+                    if (!confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
     </script>
+
 </body>
 
 </html>
