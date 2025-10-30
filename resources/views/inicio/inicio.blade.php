@@ -162,9 +162,9 @@
                             href="{{ route('login') }}">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-light btn-sm text-danger ms-lg-2 {{ request()->routeIs('registro') ? 'active' : '' }}"
-                            href="{{ route('registro') }}">
-                            <i class="fas fa-user-plus me-1"></i> Registrarse
+                        <a class="btn btn-light btn-sm text-danger ms-lg-2 {{ request()->routeIs('login') ? 'active' : '' }}"
+                            href="{{ route('login') }}">
+                            <!--i class="fas fa-user-plus me-1"></i--> Registrarse
                         </a>
                     </li>
                     @endguest
@@ -179,7 +179,8 @@
                             {{-- Perfil propio (show/edit) --}}
                             <li><a class="dropdown-item text-danger" href="{{ route('usuarios.show', $user->id) }}">
                                     <!--i class="far fa-id-card me-2"></i-->Mi Perfil
-                                </a></li>
+                                </a>
+                            </li>
                             <li><a class="dropdown-item text-danger" href="{{ route('usuarios.edit', $user->id) }}"><!--i class="fas fa-user-pen me-2"></i-->Editar Perfil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -207,7 +208,7 @@
 
                             {{-- BOTÓN DE CERRAR SESIÓN MEJORADO --}}
                             <li>
-                                <a class="dropdown-item text-danger logout-link" href="#" onclick="confirmarLogout(event)">
+                                <a class="dropdown-item text-danger logout-link" href="/inicio" onclick="confirmarLogout(event)">
                                     <!--i class="fas fa-right-from-bracket me-2"></i--> Cerrar sesión
                                 </a>
                             </li>
@@ -223,9 +224,9 @@
     <main class="flex-grow-1 d-flex flex-column">
 
         {{-- HERO --}}
-        <section id="inicio" class="hero-section py-5">
+        <section id="inicio" class="hero-section py-3">
             <div class="container">
-                <div class="row align-items-center g-4">
+                <div class="row align-items-center g-3">
                     <div class="col-lg-6">
                         <h1 class="display-5 fw-bold lh-sm">Bienvenido a <span class="text-white">TiendaComputadores</span></h1>
                         <p class="lead mt-3">Encuentra los mejores computadores de escritorio y portátiles con precios increíbles y la mejor calidad.</p>
@@ -382,23 +383,23 @@
             </div>
         </div>
 
-        {{-- accesos directos a CRUD Usuarios (útiles para pruebas) --}}
+        {{-- accesos directos a CRUD Usuarios (útiles para pruebas) 
         <div class="text-center mt-5">
             <div class="d-inline-flex gap-2 flex-wrap">
                 {{--<a href="{{ route('usuarios.index') }}" class="btn btn-outline-secondary"><i class="fas fa-users me-2"></i>Listado de Usuarios</a>
-                <a href="{{ route('usuarios.create') }}" class="btn btn-primary"><i class="fas fa-user-plus me-2"></i>Registrar Usuario</a>--}}
-                @auth
-                <a href="{{ route('usuarios.show', auth()->id()) }}" class="btn btn-info"><!-- <i class="far fa-id-card me-2"></i> -->Mi Perfil</a>
-                <a href="{{ route('usuarios.edit', auth()->id()) }}" class="btn btn-warning">
-                    <!--<i class="fas fa-user-pen me-2"></i>-->Editar Mi Perfil
-                </a>
-                @endauth
-            </div>
+        <a href="{{ route('usuarios.create') }}" class="btn btn-primary"><i class="fas fa-user-plus me-2"></i>Registrar Usuario</a>
+        @auth
+        <a href="{{ route('usuarios.show', auth()->id()) }}" class="btn btn-info"><!-- <i class="far fa-id-card me-2"></i> -->Mi Perfil</a>
+        <a href="{{ route('usuarios.edit', auth()->id()) }}" class="btn btn-warning">
+            <!--<i class="fas fa-user-pen me-2"></i>-->Editar Mi Perfil
+        </a>
+        @endauth
+        </div>
         </div>
 
         {{-- </section> --}}
 
-        {{-- CTA --}}
+        {{-- CTA 
         <section class="cta-section py-5">
             <div class="container">
                 <div class="row align-items-center">
@@ -407,16 +408,16 @@
                         <h2 class="fw-bold mb-3">¿Eres vendedor de computadores?</h2>
                         <p class="lead mb-0">Únete a nuestra plataforma y llega a miles de clientes interesados en tecnología.</p>
                     </div>--}}
-                    <div class="col-lg-4 text-lg-end">
-                        @guest
-                        <a href="{{ route('usuarios.create') }}" class="btn btn-light btn-lg cta-btn">Registrarme</a>
-                        @else
-                        <a href="{{ route('productos.index') }}" class="btn btn-light btn-lg cta-btn">Publicar productos</a>
-                        @endguest
-                    </div>
-                </div>
-            </div>
-        </section>
+        {{--<div class="col-lg-4 text-lg-end">
+        @guest
+        <a href="{{ route('usuarios.create') }}" class="btn btn-light btn-lg cta-btn">Registrarme</a>
+        @else
+        <a href="{{ route('productos.index') }}" class="btn btn-light btn-lg cta-btn">Publicar productos</a>
+        @endguest
+        </div>
+        </div>
+        </div>
+        </section>--}}
     </main>
 
     {{-- FOOTER --}}

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Iniciar Sesión - TiendaComputadores</title>
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('imagenes/storeComputadores.jpg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('imagenes/storeComputadores.jpeg') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -55,8 +55,8 @@
                             href="{{ route('login') }}">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-red btn-sm" href="{{ route('registro') }}">
-                            <i class="fas fa-user-plus me-1"></i> Registrarse
+                        <a class="btn btn-red btn-sm" href="{{ route('login') }}">
+                            <!--i class="fas fa-user-plus me-1"></i--> Registrarse
                         </a>
                     </li>
                 </ul>
@@ -130,14 +130,14 @@
                                 <div class="d-grid gap-2">
                                     <button id="submitBtn" type="submit" class="btn btn-primary">
                                         <span class="btn-text">
-                                            <i class="fas fa-right-to-bracket me-1"></i> Entrar
+                                            <!--i class="fas fa-right-to-bracket me-1"></i--> Entrar
                                         </span>
                                         <span class="btn-spinner d-none">
                                             <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                                             Enviando...
                                         </span>
                                     </button>
-                                    <a href="{{ route('registro') }}" class="btn btn-outline-secondary">
+                                    <a href="{{ route('login') }}" class="btn btn-outline-secondary">
                                         ¿No tienes cuenta? Regístrate
                                     </a>
                                 </div>

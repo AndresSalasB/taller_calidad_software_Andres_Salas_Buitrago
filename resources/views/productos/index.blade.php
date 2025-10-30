@@ -103,7 +103,7 @@
             <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-4">
                 <h1 class="m-0">Lista de Productos</h1>
                 <a href="{{ route('productos.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Nuevo Producto
+                    <!--i class="fas fa-plus"></i--> Nuevo Producto
                 </a>
             </div>
 

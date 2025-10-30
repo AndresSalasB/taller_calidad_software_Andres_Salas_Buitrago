@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="/">
             <img src="/Imagenes/storeComputadores.jpeg" alt="Logo StoreComputadores" width="90" height="90" class="rounded border border-danger">
-            <span class="fs-1 fw-semibold text-danger">StoreComputadores</span>
+            <span class="fs-1 fw-semibold text-danger">TiendaComputadores</span>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"

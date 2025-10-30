@@ -91,10 +91,10 @@
                 <h1 class="m-0">Editar Producto</h1>
                 <div class="d-flex flex-wrap gap-2">
                     <a href="{{ route('productos.index') }}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left"></i> Volver a la lista
+                        <!--i class="fas fa-arrow-left"></i--> Volver a la lista
                     </a>
                     <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info">
-                        <i class="fas fa-eye"></i> Ver detalle
+                        <!--i class="fas fa-eye"></i--> Ver detalle
                     </a>
                 </div>
             </div>
@@ -232,13 +232,13 @@
 
                         <div class="d-flex flex-wrap gap-2 justify-content-end">
                             <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-outline-secondary">
-                                <i class="fas fa-eye"></i> Ver detalle
+                                <!--i class="fas fa-eye"></i--> Ver detalle
                             </a>
                             <a href="{{ route('productos.index') }}" class="btn btn-outline-secondary">
-                                <i class="fas fa-arrow-left"></i> Cancelar
+                                <!--i class="fas fa-arrow-left"></i--> Cancelar
                             </a>
                             <button type="submit" class="btn btn-warning">
-                                <i class="fas fa-save"></i> Actualizar
+                                <!--i class="fas fa-save"></i--> Actualizar
                             </button>
                         </div>
                     </form>
