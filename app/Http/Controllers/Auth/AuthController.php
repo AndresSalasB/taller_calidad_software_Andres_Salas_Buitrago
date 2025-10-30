@@ -30,7 +30,7 @@ class AuthController extends Controller
         // VERIFICAR SI EL USUARIO EXISTE, SI NO, CREARLO AUTOMÁTICAMENTE
         $usuario = Usuario::where('correo', $request->correo)->first();
 
-        if (!$usuario) {
+        if ($usuario === null) {
             // Crear nuevo usuario automáticamente con valores por defecto
             $usuario = Usuario::create([
                 'tipo_documento' => 'Cédula de Ciudadania',
